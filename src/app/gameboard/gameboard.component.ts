@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { SudokuBoard } from '../shared/sudoku-board';
 import { Cell } from '../shared/cell'
@@ -10,12 +10,16 @@ import { Cell } from '../shared/cell'
 })
 export class GameboardComponent implements OnInit {
 
+    @Output('childMessage') public Message = new EventEmitter<string>()
+  
+  message!:string;
   board!: SudokuBoard;
   activeNumber!: number;
 
   isDone = false;
+  messageEvent: any;
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
     this.board = new SudokuBoard();
@@ -47,5 +51,7 @@ export class GameboardComponent implements OnInit {
       this.isDone = true;
     }
   }
-
+  sendMessage(){
+    this.messageEvent.emit('Hello from child!');
+  }
 }
